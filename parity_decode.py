@@ -16,7 +16,6 @@ def check_parity(value: list):
         return 0
 
 
-
 # Replace LSB of each byte of the audio data by one bit from the text bit array
 songg = wave.open("sampleStego.wav", mode='rb')
 # Convert audio to byte array
@@ -30,20 +29,21 @@ for i in binary:
         split_individual_bit.append(j)
 length_split = len(split_individual_bit)
 string_decode = []
-n = 16
+n = 200
 for i in range(0, length_split, n):
-    if (i == 240 * n):
+    if i + n > length_split:
         break
     if check_parity(split_individual_bit[i:i + n]) == 1:
         string_decode.append('1')
     else:
         string_decode.append('0')
 
-print(string_decode)
-print(len(string_decode))
 # Convert byte array back to string
 string = "".join(chr(int("".join(map(str, string_decode[i:i + 8])), 2)) for i in range(0, len(string_decode), 8))
-decoded = string.split("###")[0]
-# Print the extracted text
-print("Sucessfully decoded: " + decoded)
+string1 = ""
+for i in string:
+    if i != '#':
+        string1 = string1 + i
+string1 = string1[0:len(string1) - 1]
+print("Sucessfully decoded: " + string1)
 songg.close()
