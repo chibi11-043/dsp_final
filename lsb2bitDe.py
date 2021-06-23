@@ -21,6 +21,7 @@ def decode_lsb_2_bit(wavfile):
         elif frame_bytes[i] == 3:
             extracted.append(1)
             extracted.append(1)
+
     string = "".join(chr(int("".join(map(str, extracted[i:i + 8])), 2)) for i in range(0, len(extracted), 8))
 
     # Cut off at the filler characters

@@ -26,6 +26,7 @@ def encode_parity(wavfile, textfile, save_path, file_name):
     binary = []
     for i in frame_bytes:
         binary.append(decimalToBinary(i))
+
     # Split the binary list to 0 or 1
     split_individual_bit = []
     for i in binary:
@@ -43,8 +44,6 @@ def encode_parity(wavfile, textfile, save_path, file_name):
     for i in string:
         string1 += i
         string1 += int(total // len(string) - 1) * '#'
-    if len(string1) != total:
-        string1 = string1 + (total - len(string1)) * '#'
     # Convert text to bit array
     bits = list(map(int, ''.join([bin(ord(i)).lstrip('0b').rjust(8, '0') for i in string1])))
     len_bits = len(bits)
