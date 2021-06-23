@@ -12,7 +12,7 @@ def encode_lsb_1_bit(wavfile, textfile, save_path, file_name):
     string = f.read()
     f.close()
 
-    # Append dummy data to fill out rest of the bytes. Receiver shall detect and remove these characters.
+    # Padding preprocess
     string = string + int((len(frame_bytes) - (len(string) * 8 * 8)) / 8) * "#"
 
     # Convert text to bit array
