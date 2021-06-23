@@ -16,11 +16,11 @@ This project is a simple Desktop application made in python. The main function i
 We use Tkinter for gui, python as our main language.
 
 ## References
-*For LSB 1 bit:\
+* For LSB 1 bit:\
 https://gist.github.com/reachsumit/583c76ffd740e1a952d65da3c676931f
 https://gist.github.com/reachsumit/5376441d341bb5c8b361a2f3e0798993#file-audio-steganography-sender-py
 
-*For phase encoding:\
+* For phase encoding:\
 https://github.com/Keerthika-rajadurai/audio-steganography-1
 
 ## Contributing
