@@ -19,18 +19,13 @@ def encode_phase(wavfile, textfile, save_path, file_name):
     textLength = 8 * len(string)
     print(len(string))
 
-    blockLength = int(2 ** np.ceil(np.log2(2 * textLength)))
-    blockNumber = int(np.ceil(audioData.shape[0] / blockLength))
-
+    blockLength = int(2 * 2 ** np.ceil(np.log2(2 * textLength)))
+    blockNumber = int(audioData.shape[0] // blockLength)
     # just take the first channel of audio and divides it into many segments, length of segments
     # based on bock length 2^v>2*v
-    audioData = np.asarray(audioData, dtype=np.int16)
-    audioData = audioData[:, 1]
-    print(audioData)
-    audioData = audioData[0:blockLength * blockNumber]
-    print(audioData)
     audioData = np.array([audioData])
-    print(audioData)
+    audioData = audioData[:, 1]
+    audioData = audioData[0:blockLength * blockNumber]
     blocks = audioData.reshape((blockNumber, blockLength))
 
     # COMPUTE THE DISCRETE FOURIER TRANSFORM (DFT)
