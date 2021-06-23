@@ -1,5 +1,7 @@
 import wave
 import os
+import time
+
 
 def decimalToBinary(n):
     return format(n, '08b')
@@ -17,6 +19,7 @@ def check_parity(value: list):
 
 
 def encode_parity(wavfile, textfile, save_path, file_name):
+    start = time.time()
     # read wave audio file
     song = wave.open(wavfile, mode='rb')
     # Read frames and convert to byte array
@@ -86,5 +89,6 @@ def encode_parity(wavfile, textfile, save_path, file_name):
         fd.writeframes(final_byte)
     song.close()
 
+    print("it took", time.time() - start, "seconds to encode")
 
 # encode_parity('sample.wav', 'text.txt')

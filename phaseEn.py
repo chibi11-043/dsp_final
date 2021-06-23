@@ -2,8 +2,10 @@ import numpy as np
 import scipy as sp
 from scipy.io import wavfile
 import os
+import time
 
 def encode_phase(wavfile, textfile, save_path, file_name):
+    start = time.time()
     rate, audioData = sp.io.wavfile.read(wavfile)
     audioData = audioData.copy()
 
@@ -75,5 +77,7 @@ def encode_phase(wavfile, textfile, save_path, file_name):
 
     complete_name = os.path.join(save_path, file_name)
     sp.io.wavfile.write(complete_name + ".wav", rate, audioData.T)
+
+    print("it took", time.time() - start, "seconds to encode")
 
 # encode_phase('sample.wav', 'text.txt')

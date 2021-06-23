@@ -1,5 +1,5 @@
 import wave
-
+import time
 
 def decimalToBinary(n):
     return format(n, '08b')
@@ -17,6 +17,7 @@ def check_parity(value: list):
 
 
 def decode_parity(wavfile):
+    start = time.time()
     # Replace LSB of each byte of the audio data by one bit from the text bit array
     songg = wave.open(wavfile, mode='rb')
     # Convert audio to byte array
@@ -44,6 +45,7 @@ def decode_parity(wavfile):
     decoded = string.split("###")[0]
     print("Sucessfully decoded using parity coding: " + decoded)
     songg.close()
+    print("it took", time.time() - start, "seconds to encode")
     return decoded
 
 # decode_parity('sampleStego.wav')

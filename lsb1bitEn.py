@@ -1,8 +1,9 @@
 import wave
 import os
-
+import time
 
 def encode_lsb_1_bit(wavfile, textfile, save_path, file_name):
+    start = time.time()
     # read wave audio file
     song = wave.open(wavfile, mode='rb')
     # Read frames and convert to byte array
@@ -30,5 +31,7 @@ def encode_lsb_1_bit(wavfile, textfile, save_path, file_name):
         fd.setparams(song.getparams())
         fd.writeframes(frame_modified)
     song.close()
+
+    print("it took", time.time() - start, "seconds to encode")
 
 # encode_lsb_1_bit('sample.wav', 'text.txt')

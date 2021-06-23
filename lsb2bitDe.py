@@ -1,7 +1,8 @@
 import wave
-
+import time
 
 def decode_lsb_2_bit(wavfile):
+    start = time.time()
     song = wave.open(wavfile, mode='rb')
 
     # Convert audio to byte array
@@ -31,6 +32,7 @@ def decode_lsb_2_bit(wavfile):
     # Print the extracted text
     print("Sucessfully decoded using LSB 2 bit: " + decoded)
     song.close()
+    print("it took", time.time() - start, "seconds to encode")
     return decoded
 
 

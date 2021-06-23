@@ -1,7 +1,8 @@
 import wave
-
+import time
 
 def decode_lsb_1_bit(wavfile):
+    start = time.time()
     song = wave.open(wavfile, mode='rb')
     # Convert audio to byte array
     frame_bytes = bytearray(list(song.readframes(song.getnframes())))
@@ -17,6 +18,7 @@ def decode_lsb_1_bit(wavfile):
     # Print the extracted text
     print("Sucessfully decoded using LSB 1 bit: " + decoded)
     song.close()
+    print("it took", time.time() - start, "seconds to decode")
     return decoded
 
 

@@ -1,9 +1,11 @@
 import numpy as np
 import scipy as sp
 from scipy.io import wavfile
+import time
 
 
 def decode_phase(wavfile):
+    start = time.time()
     rate, audioData = sp.io.wavfile.read(wavfile)
 
     textLength = 8 * 500
@@ -25,7 +27,7 @@ def decode_phase(wavfile):
 
     # CONVERT AND GATHER CHARS TO REFORM ORIGINAL TEXT: ~~~~~
     result = "".join(np.char.mod("%c", secretInIntCode))
+    print("it took", time.time() - start, "seconds to encode")
     return result
-
 
 # print(decode_phase('sampleStego.wav', 16))
