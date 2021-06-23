@@ -19,20 +19,21 @@ def encode_phase(wavfile, textfile, save_path, file_name):
     textLength = 8 * len(string)
     print(len(string))
 
-    blockLength = int(2 * 2 ** np.ceil(np.log2(2 * textLength)))
+    blockLength = int(2 ** np.ceil(np.log2(2 * textLength)))
     blockNumber = int(np.ceil(audioData.shape[0] / blockLength))
 
-    if len(audioData.shape) == 1:
-        audioData.resize(blockNumber * blockLength, refcheck=False)
-        audioData = audioData[np.newaxis]
-    else:
-        audioData.resize((blockNumber * blockLength, audioData.shape[1]), refcheck=False)
-        audioData = audioData.T
-
-    blocks = audioData[0].reshape((blockNumber, blockLength))
+    # just take the first channel of audio and divides it into many segments, length of segments
+    # based on bock length 2^v>2*v
+    audioData = np.asarray(audioData, dtype=np.int16)
+    audioData = audioData[:, 1]
+    print(audioData)
+    audioData = audioData[0:blockLength * blockNumber]
+    print(audioData)
+    audioData = np.array([audioData])
+    print(audioData)
+    blocks = audioData.reshape((blockNumber, blockLength))
 
     # COMPUTE THE DISCRETE FOURIER TRANSFORM (DFT)
-    # WITH THE EFFICIENT OF FAST FOURIER TRANSFORM ALGORITHM: ~~~~~
     blocks = np.fft.fft(blocks)
 
     # COMPUTE MAGNITUDE VALUES: ~~~~~
@@ -75,6 +76,4 @@ def encode_phase(wavfile, textfile, save_path, file_name):
     complete_name = os.path.join(save_path, file_name)
     sp.io.wavfile.write(complete_name + ".wav", rate, audioData.T)
 
-
 # encode_phase('sample.wav', 'text.txt')
-

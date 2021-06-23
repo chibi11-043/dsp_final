@@ -6,6 +6,7 @@ def decode_lsb_2_bit(wavfile):
 
     # Convert audio to byte array
     frame_bytes = bytearray(list(song.readframes(song.getnframes())))
+
     extracted = []
     for i in range(len(frame_bytes)):
         frame_bytes[i] = frame_bytes[i] % 4
