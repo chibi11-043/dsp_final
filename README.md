@@ -1,6 +1,6 @@
 # Audio Steganography in Python
 
-# Digital signal processing group project
+# Digital signal processing group project(group name:oop)
 ## Members:
 Nguyễn Xuân Tùng BI10-188 (leader)\
 Nguyễn Quang Anh BI10-012\
