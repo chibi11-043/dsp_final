@@ -41,12 +41,8 @@ def decode_parity(wavfile):
 
     # Convert byte array back to string
     string = "".join(chr(int("".join(map(str, string_decode[i:i + 8])), 2)) for i in range(0, len(string_decode), 8))
-    string1 = ""
-    for i in string:
-        if i != '#':
-            string1 = string1 + i
-    string1 = string1[0:len(string1) - 1]
-    print("Sucessfully decoded: " + string1)
+    decoded = string.split("###")[0]
+    print("Sucessfully decoded: " + decoded)
     songg.close()
     return string1
 
