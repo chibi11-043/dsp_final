@@ -27,7 +27,9 @@ def decode_phase(wavfile):
 
     # CONVERT AND GATHER CHARS TO REFORM ORIGINAL TEXT: ~~~~~
     result = "".join(np.char.mod("%c", secretInIntCode))
-    print("it took", time.time() - start, "seconds to encode")
-    return result
+    decodeTime = "Decode time: " + str(round(time.time() - start, 2)) + "seconds"
+    print(decodeTime)
+
+    return result, decodeTime
 
 # print(decode_phase('sampleStego.wav', 16))

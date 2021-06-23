@@ -32,6 +32,8 @@ def encode_lsb_1_bit(wavfile, textfile, save_path, file_name):
         fd.writeframes(frame_modified)
     song.close()
 
-    print("it took", time.time() - start, "seconds to encode")
+    decodeTime = "Decode time: " + str(round(time.time() - start, 2)) + "seconds"
+    print(decodeTime)
 
+    return decodeTime
 # encode_lsb_1_bit('sample.wav', 'text.txt')

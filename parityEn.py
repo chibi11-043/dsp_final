@@ -89,6 +89,8 @@ def encode_parity(wavfile, textfile, save_path, file_name):
         fd.writeframes(final_byte)
     song.close()
 
-    print("it took", time.time() - start, "seconds to encode")
+    decodeTime = "Decode time: " + str(round(time.time() - start, 2)) + "seconds"
+    print(decodeTime)
 
+    return decodeTime
 # encode_parity('sample.wav', 'text.txt')

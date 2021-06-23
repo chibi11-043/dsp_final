@@ -78,6 +78,9 @@ def encode_phase(wavfile, textfile, save_path, file_name):
     complete_name = os.path.join(save_path, file_name)
     sp.io.wavfile.write(complete_name + ".wav", rate, audioData.T)
 
-    print("it took", time.time() - start, "seconds to encode")
+    decodeTime = "Decode time: " + str(round(time.time() - start, 2)) + "seconds"
+    print(decodeTime)
+
+    return decodeTime
 
 # encode_phase('sample.wav', 'text.txt')

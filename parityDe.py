@@ -45,7 +45,8 @@ def decode_parity(wavfile):
     decoded = string.split("###")[0]
     print("Sucessfully decoded using parity coding: " + decoded)
     songg.close()
-    print("it took", time.time() - start, "seconds to encode")
-    return decoded
+    decodeTime = "Decode time: " + str(round(time.time() - start, 2)) + "seconds"
+    print(decodeTime)
+    return decoded, decodeTime
 
 # decode_parity('sampleStego.wav')

@@ -95,6 +95,7 @@ class FrameEn:
                                                              ("all files", "*.*")))
         print(self.wavFile)
         self.enWavFile['state'] = 'normal'
+        self.enWavFile.delete(0, END)
         self.enWavFile.insert(-1, self.wavFile)
         self.enWavFile['state'] = 'disabled'
 
@@ -103,12 +104,14 @@ class FrameEn:
                                                    filetypes=(("text file", "*.txt"),
                                                               ("all files", "*.*")))
         self.enTextFile['state'] = 'normal'
+        self.enWavFile.delete(0, END)
         self.enTextFile.insert(-1, self.wavFile)
         self.enTextFile['state'] = 'disabled'
 
     def choseFolder(self):
         self.saveFolder = filedialog.askdirectory(title='select a folder')
         self.enSaveFolder['state'] = 'normal'
+        self.enWavFile.delete(0, END)
         self.enSaveFolder.insert(-1, self.saveFolder)
         self.enSaveFolder['state'] = 'disabled'
 
@@ -125,26 +128,26 @@ class FrameEn:
     def enLsb1Bit(self):
         path = self.enSaveFolder.get()
         name = self.enSaveName.get()
-        encode_lsb_1_bit(self.wavFile, self.textFile, path, name)
-        messagebox.showinfo(title=None, message="Encode Successful")
+        enTime = encode_lsb_1_bit(self.wavFile, self.textFile, path, name)
+        messagebox.showinfo(title=None, message="Encode Successfully\n" + enTime)
 
     def enLsb2Bit(self):
         path = self.enSaveFolder.get()
         name = self.enSaveName.get()
-        encode_lsb_2_bit(self.wavFile, self.textFile, path, name)
-        messagebox.showinfo(title=None, message="Encode Successful")
+        enTime = encode_lsb_2_bit(self.wavFile, self.textFile, path, name)
+        messagebox.showinfo(title=None, message="Encode Successfully\n" + enTime)
 
     def enParity(self):
         path = self.enSaveFolder.get()
         name = self.enSaveName.get()
-        encode_parity(self.wavFile, self.textFile, path, name)
-        messagebox.showinfo(title=None, message="Encode Successful")
+        enTime = encode_parity(self.wavFile, self.textFile, path, name)
+        messagebox.showinfo(title=None, message="Encode Successfully\n" + enTime)
 
     def enPhase(self):
         path = self.enSaveFolder.get()
         name = self.enSaveName.get()
-        encode_phase(self.wavFile, self.textFile, path, name)
-        messagebox.showinfo(title=None, message="Encode Successful")
+        enTime = encode_phase(self.wavFile, self.textFile, path, name)
+        messagebox.showinfo(title=None, message="Encode Successfully\n" + enTime)
 
 
 class FrameDe:
@@ -195,6 +198,7 @@ class FrameDe:
                                                   filetypes=(("wav file", "*.wav"),
                                                              ("all files", "*.*")))
         self.enWavFile['state'] = 'normal'
+        self.enWavFile.delete(0, END)
         self.enWavFile.insert(-1, self.wavFile)
         self.enWavFile['state'] = 'disabled'
 
@@ -209,22 +213,26 @@ class FrameDe:
             self.dePhase()
 
     def deLsb1Bit(self):
-        text = decode_lsb_1_bit(self.wavFile)
+        text, deTime = decode_lsb_1_bit(self.wavFile)
+        messagebox.showinfo(title=None, message="Decode Successfully\n" + deTime)
         self.textBox.delete(1.0, END)
         self.textBox.insert(1.0, text)
 
     def deLsb2Bit(self):
-        text = decode_lsb_2_bit(self.wavFile)
+        text, deTime = decode_lsb_2_bit(self.wavFile)
+        messagebox.showinfo(title=None, message="Decode Successfully\n" + deTime)
         self.textBox.delete(1.0, END)
         self.textBox.insert(1.0, text)
 
     def deParity(self):
-        text = decode_parity(self.wavFile)
+        text, deTime = decode_parity(self.wavFile)
+        messagebox.showinfo(title=None, message="Decode Successfully\n" + deTime)
         self.textBox.delete(1.0, END)
         self.textBox.insert(1.0, text)
 
     def dePhase(self):
-        text = decode_phase(self.wavFile)
+        text, deTime = decode_phase(self.wavFile)
+        messagebox.showinfo(title=None, message="Decode Successfully\n" + deTime)
         self.textBox.delete(1.0, END)
         self.textBox.insert(1.0, text)
 

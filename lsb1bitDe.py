@@ -18,8 +18,10 @@ def decode_lsb_1_bit(wavfile):
     # Print the extracted text
     print("Sucessfully decoded using LSB 1 bit: " + decoded)
     song.close()
-    print("it took", time.time() - start, "seconds to decode")
-    return decoded
+    decodeTime = "Decode time: " + str(round(time.time() - start, 2)) + "seconds"
+    print(decodeTime)
+
+    return decoded, decodeTime
 
 
 # decode_lsb_1_bit('sampleStego.wav')
