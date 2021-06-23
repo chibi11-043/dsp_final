@@ -2,8 +2,6 @@ import numpy as np
 import scipy as sp
 from scipy.io import wavfile
 import os
-import math
-
 
 def encode_phase(wavfile, textfile, save_path, file_name):
     rate, audioData = sp.io.wavfile.read(wavfile)
@@ -22,7 +20,7 @@ def encode_phase(wavfile, textfile, save_path, file_name):
 
     blockLength = int(2 * 2 ** np.ceil(np.log2(2 * textLength)))
     blockNumber = int(np.ceil(audioData.shape[0] / blockLength))
-    
+
     # just take the first channel of audio and divides it into many segments, length of segments
     # based on bock length 2^v>2*v
 

@@ -42,8 +42,8 @@ def decode_parity(wavfile):
     # Convert byte array back to string
     string = "".join(chr(int("".join(map(str, string_decode[i:i + 8])), 2)) for i in range(0, len(string_decode), 8))
     decoded = string.split("###")[0]
-    print("Sucessfully decoded: " + decoded)
+    print("Sucessfully decoded using parity coding: " + decoded)
     songg.close()
-    return string1
+    return decoded
 
 # decode_parity('sampleStego.wav')

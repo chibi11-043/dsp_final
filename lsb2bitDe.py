@@ -29,7 +29,7 @@ def decode_lsb_2_bit(wavfile):
     decoded = string.split("###")[0]
 
     # Print the extracted text
-    print("Sucessfully decoded: " + decoded)
+    print("Sucessfully decoded using LSB 2 bit: " + decoded)
     song.close()
     return decoded
 

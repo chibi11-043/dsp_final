@@ -42,7 +42,7 @@ def encode_parity(wavfile, textfile, save_path, file_name):
     # Padding preprocess
     total = int(len(split_individual_bit) / 1600)
     string = string + int(total - len(string)) * "#"
-    
+
     # Convert text to bit array
     bits = list(map(int, ''.join([bin(ord(i)).lstrip('0b').rjust(8, '0') for i in string])))
     len_bits = len(bits)
