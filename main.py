@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
 from tkinter import messagebox
@@ -6,11 +7,6 @@ from lsb1bitEn import encode_lsb_1_bit
 from lsb1bitDe import decode_lsb_1_bit
 from lsb2bitEn import encode_lsb_2_bit
 from lsb2bitDe import decode_lsb_2_bit
-from parityEn import encode_parity
-from parityDe import decode_parity
-from phaseEn import encode_phase
-from phaseDe import decode_phase
-
 
 def center_window(root, width, height):
     positionRight = int(root.winfo_screenwidth() / 2 - width / 2)
@@ -49,7 +45,7 @@ class FrameEn:
         self.draw()
 
     def draw(self):
-        values = ["LSB 1 bit", "LSB 2 bit", "Parity", "Phase"]
+        values = ["LSB 1 bit", "LSB 2 bit"]
         self.lbSelectAlgo = Label(self.frameEn, text="Select Algo ")
         self.lbSelectAlgo.grid(row=0, column=0, padx=5, pady=5)
         self.cbxSelectAlgo = ttk.Combobox(self.frameEn, justify="center", width=20, values=values)
@@ -91,8 +87,8 @@ class FrameEn:
 
     def choseWav(self):
         self.wavFile = filedialog.askopenfilename(title='select a file',
-                                                  filetypes=(("wav file", "*.wav"),
-                                                             ("all files", "*.*")))
+                                                    filetypes=(("wav file", "*.wav"),
+                                                        ("all files", "*.*")))
         print(self.wavFile)
         self.enWavFile['state'] = 'normal'
         self.enWavFile.delete(0, END)
@@ -101,8 +97,8 @@ class FrameEn:
 
     def choseText(self):
         self.textFile = filedialog.askopenfilename(title='select a file',
-                                                   filetypes=(("text file", "*.txt"),
-                                                              ("all files", "*.*")))
+                                                        filetypes=(("text file", "*.txt"),
+                                                            ("all files", "*.*")))
         self.enTextFile['state'] = 'normal'
         self.enWavFile.delete(0, END)
         self.enTextFile.insert(-1, self.wavFile)
@@ -120,10 +116,6 @@ class FrameEn:
             self.enLsb1Bit()
         elif self.cbxSelectAlgo.get() == "LSB 2 bit":
             self.enLsb2Bit()
-        elif self.cbxSelectAlgo.get() == "Parity":
-            self.enParity()
-        elif self.cbxSelectAlgo.get() == "Phase":
-            self.enPhase()
 
     def enLsb1Bit(self):
         path = self.enSaveFolder.get()
@@ -136,19 +128,6 @@ class FrameEn:
         name = self.enSaveName.get()
         enTime = encode_lsb_2_bit(self.wavFile, self.textFile, path, name)
         messagebox.showinfo(title=None, message="Encode Successfully\n" + enTime)
-
-    def enParity(self):
-        path = self.enSaveFolder.get()
-        name = self.enSaveName.get()
-        enTime = encode_parity(self.wavFile, self.textFile, path, name)
-        messagebox.showinfo(title=None, message="Encode Successfully\n" + enTime)
-
-    def enPhase(self):
-        path = self.enSaveFolder.get()
-        name = self.enSaveName.get()
-        enTime = encode_phase(self.wavFile, self.textFile, path, name)
-        messagebox.showinfo(title=None, message="Encode Successfully\n" + enTime)
-
 
 class FrameDe:
     def __init__(self, root):
@@ -170,7 +149,7 @@ class FrameDe:
         self.draw()
 
     def draw(self):
-        values = ["LSB 1 bit", "LSB 2 bit", "Parity", "Phase"]
+        values = ["LSB 1 bit", "LSB 2 bit"]
         self.lbSelectAlgo = Label(self.frameDe, text="Select Algo ")
         self.lbSelectAlgo.grid(row=0, column=0, padx=5, pady=5)
         self.cbxSelectAlgo = ttk.Combobox(self.frameDe, justify="center", width=20, values=values)
@@ -190,13 +169,13 @@ class FrameDe:
         self.btnDecode.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
 
         self.textBox = Text(self.frameDe, width=30, height=6, font=("Times", 16))
-        self.textBox.insert(1.0, "Welcome!")
+        self.textBox.insert(1.0, "")
         self.textBox.grid(row=4, column=0, columnspan=2, pady=5)
 
     def choseWav(self):
         self.wavFile = filedialog.askopenfilename(title='select a file',
-                                                  filetypes=(("wav file", "*.wav"),
-                                                             ("all files", "*.*")))
+                                                    filetypes=(("wav file", "*.wav"),
+                                                        ("all files", "*.*")))
         self.enWavFile['state'] = 'normal'
         self.enWavFile.delete(0, END)
         self.enWavFile.insert(-1, self.wavFile)
@@ -207,10 +186,6 @@ class FrameDe:
             self.deLsb1Bit()
         elif self.cbxSelectAlgo.get() == "LSB 2 bit":
             self.deLsb2Bit()
-        elif self.cbxSelectAlgo.get() == "Parity":
-            self.deParity()
-        elif self.cbxSelectAlgo.get() == "Phase":
-            self.dePhase()
 
     def deLsb1Bit(self):
         text, deTime = decode_lsb_1_bit(self.wavFile)
@@ -224,33 +199,35 @@ class FrameDe:
         self.textBox.delete(1.0, END)
         self.textBox.insert(1.0, text)
 
-    def deParity(self):
-        text, deTime = decode_parity(self.wavFile)
-        messagebox.showinfo(title=None, message="Decode Successfully\n" + deTime)
-        self.textBox.delete(1.0, END)
-        self.textBox.insert(1.0, text)
 
-    def dePhase(self):
-        text, deTime = decode_phase(self.wavFile)
-        messagebox.showinfo(title=None, message="Decode Successfully\n" + deTime)
-        self.textBox.delete(1.0, END)
-        self.textBox.insert(1.0, text)
+class Window(tk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+
+        notebook = ttk.Notebook(parent)
+
+        notebook.add(Typ1(notebook), text='ENCODE')
+        notebook.add(Typ2(notebook), text='DECODE')
+        notebook.pack()
 
 
-class Window:
-    def __init__(self):
-        self.root = Tk()
-        self.root.title('Final DSP')
-        center_window(self.root, 680, 300)
-        self.frameEn = FrameEn(self.root)
-        self.frameDe = FrameDe(self.root)
+class Typ1(tk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+        self.frameEn = FrameEn(self)
+        self.frameEn.frameEn.grid(row=0, column=1, padx=10, pady=10)
 
-        self.draw()
-        self.root.mainloop()
-
-    def draw(self):
-        self.frameEn.frameEn.grid(row=0, column=0, padx=10, pady=10)
+class Typ2(tk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+        self.frameDe = FrameDe(self)
         self.frameDe.frameDe.grid(row=0, column=1, padx=10, pady=10)
 
 
-win = Window()
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.title("Audio Steganography")
+    root.geometry("800x600")
+    Window(root).pack(side="top", fill="both", expand=True)
+    root.mainloop()
+
